@@ -137,7 +137,7 @@ class Header extends Component {
     }
 
     logoutHandler =() =>{
-        window.sessionStorage.setItem("access-token", "");
+        window.sessionStorage.setItem("access-token", null);
         history.push("/")
     }
     render() {
@@ -236,7 +236,7 @@ class Header extends Component {
                                         onClose={this.handleClose}
                                     >
                                         <MenuItem onClick={this.profileClickHandler}>My Account</MenuItem>
-                                        <MenuItem >Logout</MenuItem>
+                                        <MenuItem onClick={this.logoutHandler}>Logout</MenuItem>
                                     </Menu>
                                 </div>
                                 </div>

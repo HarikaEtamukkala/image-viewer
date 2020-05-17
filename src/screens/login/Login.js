@@ -10,7 +10,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Input from '@material-ui/core/Input';
 import Grid from '@material-ui/core/Grid';
 import FormHelperText from '@material-ui/core/FormHelperText';
-import  history from '../history';
+import history from '../history';
 import './Login.css';
 
 
@@ -35,7 +35,7 @@ const styles = theme => ({
 });
 
 class Login extends Component {
-  
+
     constructor() {
         super();
         this.state = {
@@ -46,28 +46,28 @@ class Login extends Component {
             passwordRequired: "dispNone",
             usernameOrPasswordIncorrect: "dispNone",
             loggedIn: sessionStorage.getItem("access-token") == null ? false : true,
-           
+
         }
     }
     loginHandler = () => {
         this.state.username === "" ? this.setState({ usernameRequired: "dispBlock" }) : this.setState({ usernameRequired: "dispNone" })
         this.state.password === "" ? this.setState({ passwordRequired: "dispBlock" }) : this.setState({ passwordRequired: "dispNone" })
-                if (this.state.username && this.state.password  && this.state.username === "username" && this.state.password === "password") {
-                    
-                    window.sessionStorage.setItem("access-token", this.state.accessToken);
-                    this.setState({
-                        usernameOrPasswordIncorrect: "dispNone",
-                        loggedIn: true,
-                       
-                    })
-                    history.push("/home");
-                } else {
-                    
-                    if(this.state.username && this.state.password )
-                    this.setState({
-                        usernameOrPasswordIncorrect: "dispBlock"
-                    })
-                }
+        if (this.state.username && this.state.password && this.state.username === "username" && this.state.password === "password") {
+
+            window.sessionStorage.setItem("access-token", this.state.accessToken);
+            this.setState({
+                usernameOrPasswordIncorrect: "dispNone",
+                loggedIn: true,
+
+            })
+            history.push("/home");
+        } else {
+
+            if (this.state.username && this.state.password)
+                this.setState({
+                    usernameOrPasswordIncorrect: "dispBlock"
+                })
+        }
 
     }
 
@@ -76,14 +76,14 @@ class Login extends Component {
     }
 
     passwordChangeHandler = event => {
-        
+
         this.setState({ password: event.target.value })
     }
 
-    render() {       
-       
+    render() {
+
         const { classes } = this.props;
-        return (          
+        return (
             <div>
                 <Header />
                 <Grid container
@@ -100,29 +100,29 @@ class Login extends Component {
 
                                 <Typography color="textPrimary" className={classes.title}>LOGIN</Typography>
 
-                                <Typography><br />
-                                    <FormControl fullWidth="true">
-                                        <InputLabel htmlFor="username" required="true" margin="dense" > Username</InputLabel>
-                                        <Input id="username" aria-describedby="my-helper-text" fullWidth="true" onChange={this.usernameHandler} />
+                              
+                                    <FormControl fullWidth={true} >
+                                        <InputLabel htmlFor="username" margin="dense" > Username</InputLabel>
+                                        <Input id="username" aria-describedby="my-helper-text" onChange={this.usernameHandler} />
                                         <FormHelperText className={this.state.usernameRequired}>
                                             <span className="red">required</span>
                                         </FormHelperText>
                                     </FormControl>
-                                </Typography><br />
-                                <Typography>
-                                    <FormControl fullWidth="true">
-                                        <InputLabel htmlFor="password" required="true">Password</InputLabel>
+                                <br />  <br />
+                               
+                                    <FormControl fullWidth={true}>
+                                        <InputLabel htmlFor="password">Password</InputLabel>
                                         <Input id="password" aria-describedby="my-helper-text" onChange={this.passwordChangeHandler} />
                                         <FormHelperText className={this.state.passwordRequired}>
                                             <span className="red">required</span>
                                         </FormHelperText>
                                     </FormControl>
-                                </Typography><br />
-                                <Typography>
+                                <br />  <br />  <br />
+                              
                                     <FormHelperText className={this.state.usernameOrPasswordIncorrect}>
                                         <span className="red">Incorrect username and/or password</span>
                                     </FormHelperText>
-                                </Typography>
+                               
                                 <Typography>
                                     <Button variant="contained" color="primary" onClick={() => this.loginHandler()}>LOGIN</Button>
                                 </Typography>

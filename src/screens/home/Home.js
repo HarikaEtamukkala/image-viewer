@@ -25,17 +25,17 @@ import './Home.css';
 const styles = theme => ({
     root: {
         flexGrow: 1,
-        marginLeft:'100px',
-        marginRight:'50px'
-        
+        marginLeft: '100px',
+        marginRight: '50px'
+
     },
-    card :{
-        width:750,
+    card: {
+        width: 750,
     },
     media: {
         height: 10,
         paddingTop: '56.25%', // 16:9
-       
+
     },
     expand: {
         transform: 'rotate(0deg)',
@@ -57,14 +57,14 @@ const styles = theme => ({
         padding: theme.spacing(10),
         textAlign: 'center',
         color: theme.palette.text.secondary,
-       width:700
+        width: 700
     },
-    grid:{
-        width:'10px',
-        
+    grid: {
+        width: '10px',
+
     },
-    actions:{
-        width:'700px'
+    actions: {
+        width: '700px'
     }
 });
 
@@ -76,53 +76,53 @@ class Home extends Component {
             access_token: sessionStorage.getItem("access-token"),
             profile: "",
             posts: [],
-            outline:false,
-            likeCount:0,
-            clicked:false,
-            clickedId:"",
-            comment:"",
-            addEnable:false,
-            commentId:"",
+            outline: false,
+            likeCount: 0,
+            clicked: false,
+            clickedId: "",
+            comment: "",
+            addEnable: false,
+            commentId: "",
         }
     }
 
-    likeClickHandler = (event,id) => {
-      
+    likeClickHandler = (event, id) => {
+
         console.log(event)
         console.log(id)
-        const clicked =this.state.clicked
-        console.log("clicked",clicked)
-        if(this.state.clickedId!==event){
+        const clicked = this.state.clicked
+        console.log("clicked", clicked)
+        if (this.state.clickedId !== event) {
             this.setState({
-            clicked:false
+                clicked: false
             })
         }
-        if(clicked){
+        if (clicked) {
             this.setState({
-                likeCount:this.state.likeCount-1,clicked:false,clickedId:""
+                likeCount: this.state.likeCount - 1, clicked: false, clickedId: ""
             })
-        } else{
+        } else {
             this.setState({
-                likeCount:this.state.likeCount+1,clicked:true,clickedId:event
-            }) 
+                likeCount: this.state.likeCount + 1, clicked: true, clickedId: event
+            })
         }
-     
-      }
-      commentHandler = event => {
+
+    }
+    commentHandler = event => {
         console.log(event.target.value)
         console.log(event.target.id)
-            this.setState({
-                comment:event.target.value,
-                commentId:event.target.id
-            })
-      }
+        this.setState({
+            comment: event.target.value,
+            commentId: event.target.id
+        })
+    }
 
-      addHandler =(event) =>{
-         
-            this.setState({
-                addEnable:true
-            })
-      }
+    addHandler = (event) => {
+
+        this.setState({
+            addEnable: true
+        })
+    }
 
     componentWillMount() {
 
@@ -146,38 +146,38 @@ class Home extends Component {
 
     render() {
         const { classes } = this.props;
-        console.log("id", this.state.clickedId)
+
         return (
             <div>
                 <div>
-                    <Header className="SAMPLE" home={true} />
+                    <Header home={true} />
                 </div>
                 <div className={classes.root}>
                     <Grid container spacing={10}>
                         {
                             this.state.posts && this.state.posts.length && this.state.posts.map((post, index) => {
                                 const cts = new Date(),
-                                
-                                 cdate = (new Date(cts)).toUTCString();
+
+                                    cdate = (new Date(cts)).toUTCString();
                                 return (
-                                    <Grid   className={classes.grid}  item xs={6} key={post.id}>
-                                       <Card  className={classes.paper} key={post.id}>
+                                    <Grid className={classes.grid} item xs={6} key={post.id}>
+                                        <Card className={classes.paper} key={post.id}>
                                             <CardHeader avatar={
                                                 <Avatar aria-label="recipe" className={classes.avatar} src={post.user.profile_picture} />
                                             }
                                                 title={post.user.full_name} subheader={cdate}
 
                                             />
-                                            
-                                            
+
+
                                             <CardContent>
-                                            <CardMedia className={classes.media} image={post.images.standard_resolution.url} />
-                                            <hr/>
+                                                <CardMedia className={classes.media} image={post.images.standard_resolution.url} />
+                                                <hr />
                                                 <Typography variant="body2" color="textSecondary" component="p">
                                                     {post.caption.text}
-                                                </Typography><br/>
+                                                </Typography><br />
                                                 <Typography>
-                                                {post.tags.map((tag, index) => (
+                                                    {post.tags.map((tag, index) => (
                                                         <span key={index} >
                                                             #{tag}
                                                         </span>
@@ -186,42 +186,42 @@ class Home extends Component {
 
                                             </CardContent>
                                             <CardActions disableSpacing>
-                                              
-                                                <IconButton id={index}  aria-label="add to favorites"  onClick = {this.likeClickHandler.bind(this,post.id)} >
-                                                     
-                                                     {this.state.clickedId === post.id && this.state.clicked  ?
-                                                    <FavoriteOutlinedIcon  id={post.id} color="secondary" /> :  <FavoriteBorderIcon  id={post.id} color="action" />
-                                                    }                                             
+
+                                                <IconButton id={index} aria-label="add to favorites" onClick={this.likeClickHandler.bind(this, post.id)} >
+
+                                                    {this.state.clickedId === post.id && this.state.clicked ?
+                                                        <FavoriteOutlinedIcon id={post.id} color="secondary" /> : <FavoriteBorderIcon id={post.id} color="action" />
+                                                    }
                                                 </IconButton>
-                                                {this.state.clickedId ===  post.id && this.state.clicked &&
-                                                <span>{post.likes.count+ this.state.likeCount} </span>
+                                                {this.state.clickedId === post.id && this.state.clicked &&
+                                                    <span>{post.likes.count + this.state.likeCount} </span>
                                                 }
-                                                {this.state.clickedId !==  post.id  &&
-                                                <span>{post.likes.count} </span>
+                                                {this.state.clickedId !== post.id &&
+                                                    <span>{post.likes.count} </span>
                                                 }
-                                                
+
 
                                             </CardActions>
                                             <CardActions disableSpacing>
-                                            <Typography color="initial" >
-                                                {this.state.commentId ===  post.id && this.state.addEnable &&
-                                            <span> <b>{post.user.full_name}</b>  :{this.state.comment}</span>}
-                                            </Typography>
-                                            </CardActions> 
+                                                <Typography color="initial" >
+                                                    {this.state.commentId === post.id && this.state.addEnable &&
+                                                        <span> <b>{post.user.full_name}</b>  :{this.state.comment}</span>}
+                                                </Typography>
+                                            </CardActions>
                                             <CardActions >
 
-                                                <Typography fullWidth="true" className={classes.actions} >
-                                                    <TextField id={post.id} label="Add a Comment" fullWidth="true" onChange={this.commentHandler} />
-                                                
-                                                </Typography>
+
+                                                <TextField id={post.id} label="Add a Comment" fullWidth={true} onChange={this.commentHandler} />
+
+
 
                                                 <Typography>
-                                                    <Button id={post.id} variant="contained" color="primary" onClick={()=>this.addHandler()} >ADD</Button>
+                                                    <Button id={post.id} variant="contained" color="primary" onClick={() => this.addHandler()} >ADD</Button>
                                                 </Typography>
                                             </CardActions>
                                         </Card>
 
-                                        
+
                                     </Grid>
                                 )
                             })

@@ -21,9 +21,11 @@ class Routes  extends Component {
       <Router history={history}>
         <div className="main-container">
           <Route exact path='/' component={Login} />
-         
+          <Route  path='/home' component={Home} />
+        
           <ProtectedRoute path="/home" loggedIn={this.state.loggedIn} component={Home} />
-          <Route exact path='/profile' component={Profile} />
+          <ProtectedRoute path="/profile" loggedIn={this.state.loggedIn} component={Profile} />
+          
         </div>
       </Router>
     )

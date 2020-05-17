@@ -19,6 +19,7 @@ class Like extends Component {
             comment: "",
             addEnable: false,
             commentId: "",
+            prevComment: []
         }
     }
 
@@ -56,7 +57,9 @@ class Like extends Component {
     addHandler = (event) => {
 
         this.setState({
-            addEnable: true
+            addEnable: true,
+            prevComment: this.state.prevComment.concat(this.state.comment),
+            comment: ""
         })
     }
 
@@ -64,13 +67,15 @@ class Like extends Component {
         return (
 
             <React.Fragment>
-                <Box>
-                <Typography color="initial" >
-                        {this.state.commentId === this.props.post.id && this.state.addEnable &&
-                            <span> <b>{this.props.post.user.full_name}</b>  :{this.state.comment}</span>}
+                <Box p={2} m={2}>
+                    <Typography color="initial" >
+                        {this.state.commentId === this.props.post.id && this.state.addEnable && this.state.prevComment.map((comm, index) => (
+                            <span key={index}> <b>{this.props.post.user.full_name}</b>  :{comm} <br /></span>
+                        ))}
+
                     </Typography>
                 </Box>
-                <Box>
+                <Box style={{ marginRight: 600 }}>
                     <IconButton aria-label="add to favorites" onClick={this.likeClickHandler.bind(this, this.props.post.id)} >
 
                         {this.state.clickedId === this.props.post.id && this.state.clicked ?
@@ -78,22 +83,20 @@ class Like extends Component {
                         }
                     </IconButton>
                     {this.state.clickedId === this.props.post.id && this.state.clicked &&
-                        <span>{this.props.post.likes.count + this.state.likeCount} </span>
+                        <span>{this.props.post.likes.count + this.state.likeCount} likes </span>
                     }
                     {this.state.clickedId !== this.props.post.id &&
-                        <span>{this.props.post.likes.count} </span>
+                        <span>{this.props.post.likes.count} likes</span>
                     }
                 </Box>
-                <Box>
-
-                   
+                
+                <div style={{ width: '100%' }}>
+                    <Box display="flex" p={1} bgcolor="background.paper">
                     <TextField id={this.props.post.id} label="Add a Comment" fullWidth={true} onChange={this.commentHandler} />
-                    <Typography>
-                        <Button id={this.props.post.id} variant="contained" color="primary" onClick={() => this.addHandler()} >ADD</Button>
-                    </Typography>
-
-
-                </Box>
+                    <Button id={this.props.post.id} variant="contained" color="primary" onClick={() => this.addHandler()} >ADD</Button>
+                    </Box>
+                  
+                </div>
             </React.Fragment>
         )
     }

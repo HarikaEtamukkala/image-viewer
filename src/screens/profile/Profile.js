@@ -1,21 +1,11 @@
 import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
-import Grid from '@material-ui/core/Grid';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
 import Box from '@material-ui/core/Box';
 import Header from '../../common/Header';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import EditRoundedIcon from '@material-ui/icons/EditRounded';
 import Modal from '@material-ui/core/Modal';
-import Backdrop from '@material-ui/core/Backdrop';
-import Fade from '@material-ui/core/Fade';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import Paper from '@material-ui/core/Paper';
 import Divider from '@material-ui/core/Divider';
 import { Avatar, Typography, Button } from '@material-ui/core';
 import Like from '../../common/Like';
@@ -188,11 +178,8 @@ class Profile extends Component {
                                             <Box p={0.4}>
                                                 <Typography>Followed By: {this.state.profile.counts.followed_by}</Typography>
                                             </Box>
-                                            <Box  >
-                                                <Button variant="fab" color="secondary">
+                                            <Box >
 
-                                                    <EditRoundedIcon />
-                                                </Button>
                                             </Box>
                                         </Box>
                                     }

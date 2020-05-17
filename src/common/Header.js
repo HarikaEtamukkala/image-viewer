@@ -12,6 +12,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import Avatar from '@material-ui/core/Avatar';
 import history from '../screens/history';
+import Box from '@material-ui/core/Box';
 import { Link } from 'react-router-dom';
 import './Header.css';
 
@@ -38,11 +39,10 @@ const styles = theme => ({
         borderRadius: '4px',
         backgroundColor: '#c0c0c0',
 
-        marginLeft: 100,
+       
         width: '300px',
         [theme.breakpoints.up('sm')]: {
-            marginLeft: theme.spacing(1),
-            marginRight: theme.spacing(10),
+           marginTop:theme.spacing(4),
             width: 'auto',
         },
     },
@@ -136,8 +136,8 @@ class Header extends Component {
         history.push("/home");
     }
 
-    logoutHandler =() =>{
-        window.sessionStorage.setItem("access-token", null);
+    logoutHandler = () => {
+        window.sessionStorage.setItem("access-token", "");
         history.push("/")
     }
     render() {
@@ -154,69 +154,21 @@ class Header extends Component {
                         <Toolbar>
 
                             <Typography className={classes.title} variant="h6" noWrap onClick={this.homePageHandler} >
-                                
+
                                 Image Viewer
                              </Typography>
 
-                             {this.props.profilePicture &&
-                                    <div>
-                                        <IconButton
-                                            aria-label="account of current user"
-                                            aria-controls="menu-appbar"
-                                            aria-haspopup="true"
-                                            color="inherit"
-                                            onClick={this.handleMenu}
-                                        >
-                                            <Avatar className={classes.large}>
-                                                <img src={this.state.profile.profile_picture} className="movie-poster" alt={this.state.profile.full_name}  />
-
-                                            </Avatar>
-                                        </IconButton>
-                                        <Menu
-                                        id="menu-appbar"
-                                        anchorEl={this.state.anchorEl}
-                                        anchorOrigin={{
-                                            vertical: 'top',
-                                            horizontal: 'right',
-                                        }}
-                                        keepMounted
-                                        transformOrigin={{
-                                            vertical: 'top',
-                                            horizontal: 'right',
-                                        }}
-                                        open={open}
-                                        onClose={this.handleClose}
-                                    >
-                                        
-                                        <MenuItem onClick={this.logoutHandler}>Logout</MenuItem>
-                                    </Menu>
-                                </div>}
-                            {this.props.home &&
-                                <div className={classes.parent}>
-                                    <div className={classes.search}>
-                                        <div className={classes.searchIcon}>
-                                            <SearchIcon />
-                                        </div>
-                                        <InputBase
-                                            placeholder="Search…"
-                                            classes={{
-                                                root: classes.inputRoot,
-                                                input: classes.inputInput,
-                                            }}
-                                            inputProps={{ 'aria-label': 'search' }}
-                                        />
-                                    </div>
-                                  
-                                <div className={classes.profile}>
+                            {this.props.profilePicture &&
+                                <div>
                                     <IconButton
                                         aria-label="account of current user"
                                         aria-controls="menu-appbar"
                                         aria-haspopup="true"
-                                        onClick={this.handleMenu}
                                         color="inherit"
+                                        onClick={this.handleMenu}
                                     >
                                         <Avatar className={classes.large}>
-                                            <img src={this.state.profile.profile_picture} className="movie-poster" alt={this.state.profile.full_name} onClick={this.handleMenu} />
+                                            <img src={this.state.profile.profile_picture}  alt={this.state.profile.full_name} />
 
                                         </Avatar>
                                     </IconButton>
@@ -235,15 +187,72 @@ class Header extends Component {
                                         open={open}
                                         onClose={this.handleClose}
                                     >
-                                        <MenuItem onClick={this.profileClickHandler}>My Account</MenuItem>
+
                                         <MenuItem onClick={this.logoutHandler}>Logout</MenuItem>
                                     </Menu>
-                                </div>
+                                </div>}
+                            {this.props.home &&
+                                <div className={classes.parent}>
+                                    <Box display="flex">
+                                        <Box>
+                                            <div className={classes.search}>
+                                                <div className={classes.searchIcon}>
+                                                    <SearchIcon />
+                                                </div>
+                                                <InputBase
+                                                    placeholder="Search…"
+                                                    classes={{
+                                                        root: classes.inputRoot,
+                                                        input: classes.inputInput,
+                                                    }}
+                                                    inputProps={{ 'aria-label': 'search' }}
+                                                />
+                                            </div>
+                                        </Box>
+                                        <Box>
+                                            <div>
+                                                <IconButton
+                                                    aria-label="account of current user"
+                                                    aria-controls="menu-appbar"
+                                                    aria-haspopup="true"
+                                                    onClick={this.handleMenu}
+                                                    color="inherit"
+                                                >
+                                                    {this.state.profile && this.state.profile.profile_picture &&
+                                                        <Avatar className={classes.large}>
+                                                            <img src={this.state.profile.profile_picture} alt={this.state.profile.full_name} onClick={this.handleMenu} />
+
+                                                        </Avatar>}
+                                                </IconButton>
+                                                <Menu
+                                                    id="menu-appbar"
+                                                    anchorEl={this.state.anchorEl}
+                                                    anchorOrigin={{
+                                                        vertical: 'top',
+                                                        horizontal: 'right',
+                                                    }}
+                                                    keepMounted
+                                                    transformOrigin={{
+                                                        vertical: 'top',
+                                                        horizontal: 'right',
+                                                    }}
+                                                    open={open}
+                                                    onClose={this.handleClose}
+                                                >
+                                                    <MenuItem onClick={this.profileClickHandler}>My Account</MenuItem>
+                                                    <MenuItem onClick={this.logoutHandler}>Logout</MenuItem>
+                                                </Menu>
+                                            </div>
+                                        </Box>
+                                    </Box>
+
+
+
                                 </div>
                             }
                         </Toolbar>
                     </AppBar>
-            </div>
+                </div>
             </div >
         )
 

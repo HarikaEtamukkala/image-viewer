@@ -4,7 +4,7 @@ import Login from '../screens/login/Login';
 import { Router, Route } from 'react-router-dom';
 import history from './history';
 import ProtectedRoute from './ProtectedRoute';
-
+import Profile from '../screens/profile/Profile'
 class Routes  extends Component {
  
 
@@ -23,6 +23,7 @@ class Routes  extends Component {
           <Route exact path='/' component={Login} />
          
           <ProtectedRoute path="/home" loggedIn={this.state.loggedIn} component={Home} />
+          <Route exact path='/profile' component={Profile} />
         </div>
       </Router>
     )

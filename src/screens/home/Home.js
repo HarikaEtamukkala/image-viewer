@@ -10,8 +10,9 @@ import { red } from '@material-ui/core/colors';
 import Header from '../../common/Header';
 import Grid from '@material-ui/core/Grid';
 import Like from '../../common/Like';
+import ReactDOM from 'react-dom';
 import './Home.css';
-
+import history from '../history';
 
 
 const styles = theme => ({
@@ -64,10 +65,13 @@ class Home extends Component {
 
     constructor() {
         super();
+        this.handleChange = this.handleChange.bind(this);
+    
         this.state = {
             access_token: sessionStorage.getItem("access-token"),
             profile: "",
             posts: [],
+            actualPosts: [],
             outline: false,
             likeCount: 0,
             clicked: false,
@@ -75,10 +79,11 @@ class Home extends Component {
             comment: "",
             addEnable: false,
             commentId: "",
-        }
-    } 
- 
+            myRef: React.createRef(),
 
+        }
+    }
+    
     componentWillMount() {
 
 
@@ -89,7 +94,8 @@ class Home extends Component {
             if (this.readyState === 4) {
 
                 that.setState({
-                    posts: JSON.parse(this.responseText).data
+                    posts: JSON.parse(this.responseText).data,
+                    actualPosts: JSON.parse(this.responseText).data
                 });
             }
         });
@@ -99,15 +105,35 @@ class Home extends Component {
         xhrMedia.send(imagedata);
     }
 
+    handleChange = (event) => {
+        let posts = []
+        let searchBarText = event.target.value;
+        this.state.posts.forEach(function (post) {
+            if (post.caption.text.indexOf(searchBarText) !== -1) {               
+                posts.push(post)
+            }
+           
+        })
+        this.setState({
+            posts: posts
+        })
+
+        if (searchBarText === "") {
+            this.setState({
+                posts: this.state.actualPosts
+            })
+        }
+    }
+
     render() {
         const { classes } = this.props;
 
         return (
-            <div>
+            <div className="div">
                 <div>
-                    <Header home={true} />
+                    <Header home={true} handleChange={this.handleChange} />
                 </div>
-                <div className={classes.root}>
+                <div className={classes.root} ref="Progress">
                     <Grid container spacing={10}>
                         {
                             this.state.posts && this.state.posts.length && this.state.posts.map((post, index) => {
@@ -116,15 +142,15 @@ class Home extends Component {
                                     cdate = (new Date(cts)).toUTCString();
                                 return (
                                     <Grid className={classes.grid} item xs={6} key={post.id}>
-                                        <Card  key={post.id}>
+                                        <Card key={post.id}>
                                             <CardHeader avatar={
-                                                <Avatar aria-label="recipe" className={classes.avatar} src={post.user.profile_picture}/>
+                                                <Avatar aria-label="recipe" className={classes.avatar} src={post.user.profile_picture} />
                                             }
                                                 title={post.user.full_name} subheader={cdate}
                                             />
                                             <CardContent>
-                                                <CardMedia className={classes.media} image={post.images.standard_resolution.url} 
-                                              />
+                                                <CardMedia className={classes.media} image={post.images.standard_resolution.url}
+                                                />
                                                 <hr />
                                                 <Typography variant="body2" color="textSecondary" component="p">
                                                     {post.caption.text}
@@ -139,12 +165,10 @@ class Home extends Component {
 
                                             </CardContent>
                                             <CardContent >
-                                            <Like post={post}/>
+                                                <Like post={post} />
                                             </CardContent>
-                                         
+
                                         </Card>
-
-
                                     </Grid>
                                 )
                             })

@@ -18,7 +18,6 @@ import './Login.css';
 const styles = theme => ({
     root: {
         width: 400,
-
     },
     bullet: {
         display: 'inline-block',
@@ -49,6 +48,9 @@ class Login extends Component {
 
         }
     }
+
+
+    //Login Handler for login user
     loginHandler = () => {
         this.state.username === "" ? this.setState({ usernameRequired: "dispBlock" }) : this.setState({ usernameRequired: "dispNone" })
         this.state.password === "" ? this.setState({ passwordRequired: "dispBlock" }) : this.setState({ passwordRequired: "dispNone" })
@@ -97,37 +99,32 @@ class Login extends Component {
 
                         <CardContent className={classes.pos}>
                             <form noValidate autoComplete="off">
-
                                 <Typography color="textPrimary" className={classes.title}>LOGIN</Typography>
-
-                              
-                                    <FormControl fullWidth={true} >
-                                        <InputLabel htmlFor="username" margin="dense" > Username</InputLabel>
-                                        <Input id="username" aria-describedby="my-helper-text" onChange={this.usernameHandler} />
-                                        <FormHelperText className={this.state.usernameRequired}>
-                                            <span className="red">required</span>
-                                        </FormHelperText>
-                                    </FormControl>
-                                <br />  <br />
-                               
-                                    <FormControl fullWidth={true}>
-                                        <InputLabel htmlFor="password">Password</InputLabel>
-                                        <Input id="password" aria-describedby="my-helper-text" onChange={this.passwordChangeHandler} />
-                                        <FormHelperText className={this.state.passwordRequired}>
-                                            <span className="red">required</span>
-                                        </FormHelperText>
-                                    </FormControl>
-                                <br />  <br />  <br />
-                              
-                                    <FormHelperText className={this.state.usernameOrPasswordIncorrect}>
-                                        <span className="red">Incorrect username and/or password</span>
+                                <FormControl fullWidth={true} >
+                                    <InputLabel htmlFor="username" margin="dense" > Username</InputLabel>
+                                    <Input id="username" aria-describedby="my-helper-text" onChange={this.usernameHandler} />
+                                    <FormHelperText className={this.state.usernameRequired}>
+                                        <span className="red">required</span>
                                     </FormHelperText>
-                               
+                                </FormControl>
+                                <br />  <br />
+
+                                <FormControl fullWidth={true}>
+                                    <InputLabel htmlFor="password">Password</InputLabel>
+                                    <Input id="password" aria-describedby="my-helper-text" onChange={this.passwordChangeHandler} />
+                                    <FormHelperText className={this.state.passwordRequired}>
+                                        <span className="red">required</span>
+                                    </FormHelperText>
+                                </FormControl>
+                                <br />  <br />  <br />
+
+                                <FormHelperText className={this.state.usernameOrPasswordIncorrect}>
+                                    <span className="red">Incorrect username and/or password</span>
+                                </FormHelperText>
+
                                 <Typography>
                                     <Button variant="contained" color="primary" onClick={() => this.loginHandler()}>LOGIN</Button>
                                 </Typography>
-
-
                             </form>
                         </CardContent>
 

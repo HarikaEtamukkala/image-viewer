@@ -14,6 +14,7 @@ import Avatar from '@material-ui/core/Avatar';
 import history from '../screens/history';
 import Box from '@material-ui/core/Box';
 import { Link } from 'react-router-dom';
+
 import './Header.css';
 
 
@@ -82,6 +83,7 @@ const styles = theme => ({
 
 });
 
+
 class Header extends Component {
 
     constructor() {
@@ -91,10 +93,12 @@ class Header extends Component {
             profile: "",
             setAnchorEl: null,
             anchorEl: null
-
+            
         }
     }
 
+    
+    
     handleMenu = (event) => {
         this.setState = {
             setAnchorEl: event.currentTarget
@@ -144,20 +148,20 @@ class Header extends Component {
         const { classes } = this.props;
 
         const open = Boolean(this.state.anchorEl);
+       
 
+        // Get child nodes
+       
         return (
-            <div>
-
-
+            <div> 
+                <div className="banner-div" id="banner-div"  ref={this.props.ref}>
+      </div>
                 <div >
                     <AppBar position="static" style={{ background: '#263238' }} >
                         <Toolbar>
-
                             <Typography className={classes.title} variant="h6" noWrap onClick={this.homePageHandler} >
-
                                 Image Viewer
                              </Typography>
-
                             {this.props.profilePicture &&
                                 <div>
                                     <IconButton
@@ -205,7 +209,9 @@ class Header extends Component {
                                                         root: classes.inputRoot,
                                                         input: classes.inputInput,
                                                     }}
+                                                    onChange={this.props.handleChange}
                                                     inputProps={{ 'aria-label': 'search' }}
+                                                    
                                                 />
                                             </div>
                                         </Box>

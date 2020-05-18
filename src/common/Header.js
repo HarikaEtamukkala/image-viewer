@@ -1,20 +1,16 @@
 import React, { Component } from 'react';
 import InputBase from '@material-ui/core/InputBase';
-import { fade, withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
 import Toolbar from '@material-ui/core/Toolbar';
 import AppBar from '@material-ui/core/AppBar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
-import AccountCircle from '@material-ui/icons/AccountCircle';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import Avatar from '@material-ui/core/Avatar';
 import history from '../screens/history';
 import Box from '@material-ui/core/Box';
-import { Link } from 'react-router-dom';
-
 import './Header.css';
 
 
@@ -42,8 +38,8 @@ const styles = theme => ({
 
        
         width: '300px',
-        [theme.breakpoints.up('sm')]: {
-           marginTop:theme.spacing(4),
+        [theme.breakpoints.up('md')]: {
+           marginTop:theme.spacing(3),
             width: 'auto',
         },
     },
@@ -73,8 +69,8 @@ const styles = theme => ({
         },
     },
     large: {
-        width: theme.spacing(7),
-        height: theme.spacing(7),
+        width: theme.spacing(6),
+        height: theme.spacing(6),
     },
     profile: {
         marginLeft: theme.spacing(25),
@@ -106,7 +102,7 @@ class Header extends Component {
 
     }
 
-    componentWillMount() {
+    UNSAFE_componentWillMount() {
         let data = null;
         let xhr = new XMLHttpRequest();
         let that = this;
@@ -171,8 +167,7 @@ class Header extends Component {
                                         color="inherit"
                                         onClick={this.handleMenu}
                                     >
-                                        <Avatar className={classes.large}>
-                                            <img src={this.state.profile.profile_picture}  alt={this.state.profile.full_name} />
+                                        <Avatar src={this.state.profile.profile_picture} alt={this.state.profile.full_name}>                                        
 
                                         </Avatar>
                                     </IconButton>

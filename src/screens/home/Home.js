@@ -10,21 +10,17 @@ import { red } from '@material-ui/core/colors';
 import Header from '../../common/Header';
 import Grid from '@material-ui/core/Grid';
 import Like from '../../common/Like';
-import ReactDOM from 'react-dom';
+import Container from '@material-ui/core/Container'
 import './Home.css';
-import history from '../history';
+
 
 
 const styles = theme => ({
     root: {
         flexGrow: 1,
-        marginLeft: '100px',
-        marginRight: '50px'
-
+       
     },
-    card: {
-        width: 750,
-    },
+    
     media: {
         height: 10,
         paddingTop: '56.25%', // 16:9
@@ -47,15 +43,13 @@ const styles = theme => ({
         color: "blue",
     },
     paper: {
-        padding: theme.spacing(10),
+       
+        padding: theme.spacing(2),
         textAlign: 'center',
         color: theme.palette.text.secondary,
-        width: 700
+      
     },
-    grid: {
-        width: '10px',
-
-    },
+    
     actions: {
         width: '700px'
     }
@@ -84,7 +78,7 @@ class Home extends Component {
         }
     }
     
-    componentWillMount() {
+    UNSAFE_componentWillMount() {
 
 
         let imagedata = null;
@@ -133,16 +127,17 @@ class Home extends Component {
                 <div>
                     <Header home={true} handleChange={this.handleChange} />
                 </div>
-                <div className={classes.root} ref="Progress">
-                    <Grid container spacing={10}>
+                <Container maxWidth="lg">
+                <div  className={classes.root} ref="Progress">
+                    <Grid container direction={'row'}  spacing={3}>
                         {
                             this.state.posts && this.state.posts.length && this.state.posts.map((post, index) => {
                                 const cts = new Date(),
-
-                                    cdate = (new Date(cts)).toUTCString();
+                                cdate =new Intl.DateTimeFormat('en-US', {year: 'numeric', month: '2-digit',day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit'}).format(cts);
+                            
                                 return (
-                                    <Grid className={classes.grid} item xs={6} key={post.id}>
-                                        <Card key={post.id}>
+                                    <Grid item md={6}  xs={6} key={post.id}>
+                                        <Card key={post.id} >
                                             <CardHeader avatar={
                                                 <Avatar aria-label="recipe" className={classes.avatar} src={post.user.profile_picture} />
                                             }
@@ -164,9 +159,9 @@ class Home extends Component {
                                                 </Typography>
 
                                             </CardContent>
-                                            <CardContent >
+                                            
                                                 <Like post={post} />
-                                            </CardContent>
+                                           
 
                                         </Card>
                                     </Grid>
@@ -176,7 +171,7 @@ class Home extends Component {
 
                     </Grid>
                 </div>
-
+                </Container>
             </div>
 
         )

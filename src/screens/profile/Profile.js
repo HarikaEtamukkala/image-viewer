@@ -7,7 +7,7 @@ import GridListTile from '@material-ui/core/GridListTile';
 import EditRoundedIcon from '@material-ui/icons/EditRounded';
 import Modal from '@material-ui/core/Modal';
 import Divider from '@material-ui/core/Divider';
-import { Avatar, Typography, Button } from '@material-ui/core';
+import { Avatar, Typography } from '@material-ui/core';
 import Like from '../../common/Like';
 
 
@@ -31,6 +31,7 @@ const styles = theme => ({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
+        width: 'auto',
     },
     paper: {
         backgroundColor: theme.palette.background.paper,
@@ -54,7 +55,8 @@ class Profile extends Component {
             currentPost: ""
         }
     }
-    componentWillMount() {
+
+    UNSAFE_componentWillMount() {
         let data = null;
         let xhr = new XMLHttpRequest();
         let that = this;
@@ -88,7 +90,6 @@ class Profile extends Component {
         xhrMedia.send(imagedata);
     }
     handleOpen = (post, val) => {
-        console.log("click" + post.caption.text)
 
         this.setState({
             currentPost: post,
@@ -109,37 +110,6 @@ class Profile extends Component {
     render() {
 
         const { classes } = this.props;
-        const handleOpen = (event) => {
-
-            this.setState({
-                setOpen: true,
-                open: true
-            })
-        };
-
-        const handleClose = () => {
-            this.setState({
-                setOpen: false
-            })
-        };
-
-        const body = (
-            <div className={classes.paper}>
-                <Box>
-                    <Box>
-
-                    </Box>
-                    <Box>
-
-                    </Box>
-                </Box>
-                <h2 id="simple-modal-title">Text in a modal</h2>
-                <p id="simple-modal-description">
-                    Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-              </p>
-
-            </div>
-        );
 
         return (
             <React.Fragment>
@@ -190,7 +160,7 @@ class Profile extends Component {
 
                                     (
                                         <GridListTile key={post.id} >
-                                            <img src={post.images.standard_resolution.url} onClick={() => this.handleOpen(post, post.images.standard_resolution)} />
+                                            <img src={post.images.standard_resolution.url} alt="" onClick={() => this.handleOpen(post, post.images.standard_resolution)} />
                                             <Modal className={classes.modal}
                                                 open={this.state.open}
                                                 onClose={this.handleClose}
@@ -204,9 +174,9 @@ class Profile extends Component {
                                                     p={1}
                                                     m={1}
                                                     bgcolor="background.paper"
-                                                    css={{ height: '100', width: '80' }}>
+                                                    css={{ height: '80', width: '80' }}>
                                                     <Box p={1} >
-                                                        <img src={this.state.url.url} height={this.state.url.height} width={this.state.url.width} />
+                                                        <img src={this.state.url.url} alt="imae" height={this.state.url.height} width={this.state.url.width} />
                                                     </Box>
                                                     <Box p={1} >
                                                         <Box display="flex"
@@ -237,9 +207,9 @@ class Profile extends Component {
                                                                 ))}
                                                             </Typography>}
 
-                                                        <Typography>
-                                                            <Like post={post} />
-                                                        </Typography>
+                                                        <Like post={post} />
+
+
                                                     </Box>
 
                                                 </Box>

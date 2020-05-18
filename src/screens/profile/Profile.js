@@ -20,17 +20,12 @@ const styles = theme => ({
     width: theme.spacing(9),
     height: theme.spacing(9),
   },
-  root: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'space-around',
-    overflow: 'hidden',
-    backgroundColor: theme.palette.background.paper,
-  },
+
   gridList: {
     width: 700,
     height: 450,
   },
+
   modal: {
     display: 'flex',
     alignItems: 'center',
@@ -42,9 +37,9 @@ const styles = theme => ({
   },
   paper: {
     backgroundColor: theme.palette.background.paper,
-   
     padding: theme.spacing(2, 4, 3),
   },
+
   pink: {
     color: theme.palette.getContrastText(pink[500]),
     backgroundColor: pink[500],
@@ -66,7 +61,7 @@ class Profile extends Component {
       selectedId: "",
       url: "",
       currentPost: "",
-      fullname:""
+      fullname: ""
     }
   }
 
@@ -103,7 +98,7 @@ class Profile extends Component {
     xhrMedia.setRequestHeader("Cache-Control", "no-cache");
     xhrMedia.send(imagedata);
   }
-
+  //used to open images modal
   handleOpen = (post, val) => {
     this.setState({
       currentPost: post,
@@ -118,12 +113,12 @@ class Profile extends Component {
       imageDetailsModal: false
     })
   };
-
+  //used to open edit modal
   handleEditOpen = () => {
     this.setState({
-     
-      editOpen: true,   
-      
+
+      editOpen: true,
+
     })
   };
 
@@ -134,10 +129,10 @@ class Profile extends Component {
   };
 
   changeFullNameHandler = event => {
-      this.setState({ fullname: event.target.value })
-}
-
-  updateNameHandler () {
+    this.setState({ fullname: event.target.value })
+  }
+  //used to change full name after editing from edit modal
+  updateNameHandler() {
     const profile = this.state.profile;
     profile.full_name = this.state.fullname;
     this.setState({
@@ -157,25 +152,16 @@ class Profile extends Component {
         {this.state.profile &&
           <React.Fragment>
             <Container maxWidth="lg">
-              <Box
-                display="flex"
-                alignItems="flex-start"
-                p={1}
-                m={1}
-                bgcolor="background.paper"
-                css={{ height: 100 }}
-              >
+              <Box display="flex" alignItems="flex-start" p={1} m={1} bgcolor="background.paper"  css={{ height: 100 }} >
                 <Box p={1} >
                   <Avatar className={classes.large} src={this.state.profile.profile_picture}></Avatar>
                 </Box>
                 <Box p={1} >
-
                 </Box>
                 <Box p={1} >
                   <Typography variant="h6">
                     {this.state.profile.username}
                   </Typography>
-
                   {this.state.profile.counts &&
                     <Box display="flex" flexDirection="row" >
                       <Box p={0.4}>
@@ -197,26 +183,21 @@ class Profile extends Component {
 
                   }
                   <Box display="flex" flexDirection="row" >
-                    <Box p={0.4}>
+                     <Box p={0.4}>
                       <span>{this.state.profile.full_name}</span>
-                    </Box>
+                     </Box>
                     <Box p={0.4}>
                       <Avatar className={classes.pink} title={this.state.profile.full_name}  >
-                        <EditRoundedIcon onClick={()=>this.handleEditOpen()}/>
+                        <EditRoundedIcon onClick={() => this.handleEditOpen()} />
                       </Avatar>
-                      <Modal className={classes.modal}
-                        open={this.state.editOpen}
-                        aria-labelledby="simple-modal-title"
-                        aria-describedby="simple-modal-description"
-                        onClose={this.handleEditClose}
-                      >
+                      <Modal className={classes.modal}  open={this.state.editOpen} aria-labelledby="simple-modal-title" aria-describedby="simple-modal-description" 
+                       onClose={this.handleEditClose} >
                         <div className={classes.paper}>
                           <h2 id="simple-modal-title">Edit</h2>
-                       
                           <FormControl fullWidth={true} >
-                          <TextField id="standard-basic" label="Full Name" required onChange={this.changeFullNameHandler}/> <br/>
-                            <Button variant="contained" color="primary" onClick={this.updateNameHandler.bind(this)}>UPDATE</Button>                                
-                           </FormControl>
+                            <TextField id="standard-basic" label="Full Name" required onChange={this.changeFullNameHandler} /> <br />
+                            <Button variant="contained" color="primary" onClick={this.updateNameHandler.bind(this)}>UPDATE</Button>
+                          </FormControl>
                         </div>
                       </Modal>
                     </Box>
@@ -224,8 +205,6 @@ class Profile extends Component {
                 </Box>
 
               </Box>
-
-
               <GridList cellHeight={200} className={classes.gridList} cols={3}>
                 {
                   this.state.posts.map((post) => (
@@ -256,7 +235,7 @@ class Profile extends Component {
                       <Divider variant="middle" />
                       {
                         currentPost.caption && currentPost.caption.text &&
-                        <Typography>{currentPost.caption.text.substring(0,currentPost.caption.text.indexOf('#'))}</Typography>
+                        <Typography>{currentPost.caption.text.substring(0, currentPost.caption.text.indexOf('#'))}</Typography>
                       }
                       {currentPost.tags &&
                         <Typography color="primary">
@@ -266,16 +245,12 @@ class Profile extends Component {
                             </span>
                           ))}
                         </Typography>}
-                        <Box><Like post={currentPost} /></Box>
-                      
+                      <Box><Like post={currentPost} /></Box>
                     </Box>
                   </Box>
                 </Modal>
-
               </GridList>
-
             </Container>
-
           </React.Fragment>
         }
       </React.Fragment>

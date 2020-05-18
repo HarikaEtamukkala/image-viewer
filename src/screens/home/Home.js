@@ -33,7 +33,7 @@ class Home extends Component {
 
     constructor() {
         super();
-        this.handleChange = this.handleChange.bind(this);
+        this.searchHandler = this.searchHandler.bind(this);
     
         this.state = {
             access_token: sessionStorage.getItem("access-token"),

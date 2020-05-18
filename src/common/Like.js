@@ -34,10 +34,9 @@ class Like extends Component {
     }
 
     likeClickHandler = (event, id) => {
-        console.log(event)
-        console.log(id)
+      
         const clicked = this.state.clicked
-        console.log("clicked", clicked)
+        
         if (this.state.clickedId !== event) {
             this.setState({
                 clicked: false
@@ -56,8 +55,7 @@ class Like extends Component {
     }
 
     commentHandler = event => {
-        console.log(event.target.value)
-        console.log(event.target.id)
+        
         this.setState({
             comment: event.target.value,
             commentId: event.target.id
@@ -79,7 +77,7 @@ class Like extends Component {
         return (
 
             <React.Fragment>
-                <Box >
+                <Box  display="flex" m={1}>
                     <Typography color="initial" >
                         {this.state.commentId === this.props.post.id && this.state.addEnable && this.state.prevComment.map((comm, index) => (
                             <span key={index}> <b>{this.props.post.user.full_name}</b>  :{comm} <br /></span>

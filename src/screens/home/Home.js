@@ -126,7 +126,7 @@ class Home extends Component {
                                                 <CardHeader avatar={
                                                     <Avatar aria-label="recipe" className={classes.avatar} src={post.user.profile_picture} />
                                                 }
-                                                    title={post.user.full_name} subheader={cdate}
+                                                    title={post.user.username} subheader={cdate}
                                                 />
                                                 <CardContent>
                                                     <CardMedia className={classes.media} image={post.images.standard_resolution.url} height="300" width="300"
@@ -136,7 +136,7 @@ class Home extends Component {
                                                     <Typography color="primary">
                                                         {post.tags.map((tag, index) => (
                                                             <span key={index} >
-                                                                #{tag}
+                                                                #{tag} &nbsp;
                                                             </span>
                                                         ))}
                                                     </Typography>

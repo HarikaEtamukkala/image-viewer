@@ -94,8 +94,10 @@ class Header extends Component {
     }
   //logout of application
     logoutHandler = () => {
-        window.sessionStorage.setItem("access-token", "");
-        history.push("/")
+        
+        window.sessionStorage.clear();
+        history.push("/");
+       
     }
     render() {
         const { classes } = this.props;

@@ -44,10 +44,10 @@ class Login extends Component {
 
     //Login Handler for login user
     loginHandler = () => {
+        console.log("login")
         this.state.username === "" ? this.setState({ usernameRequired: "dispBlock" }) : this.setState({ usernameRequired: "dispNone" })
         this.state.password === "" ? this.setState({ passwordRequired: "dispBlock" }) : this.setState({ passwordRequired: "dispNone" })
         if (this.state.username && this.state.password && this.state.username === "username" && this.state.password === "password") {
-
             window.sessionStorage.setItem("access-token", this.state.accessToken);
             this.setState({
                 usernameOrPasswordIncorrect: "dispNone",

@@ -152,7 +152,7 @@ class Profile extends Component {
         {this.state.profile &&
           <React.Fragment>
             <Container maxWidth="lg">
-              <Box display="flex" alignItems="flex-start" p={1} m={1} bgcolor="background.paper"  css={{ height: 100 }} >
+              <Box display="flex" alignItems="flex-start" p={1} m={1} bgcolor="background.paper" css={{ height: 100 }} >
                 <Box p={1} >
                   <Avatar className={classes.large} src={this.state.profile.profile_picture}></Avatar>
                 </Box>
@@ -183,15 +183,15 @@ class Profile extends Component {
 
                   }
                   <Box display="flex" flexDirection="row" >
-                     <Box p={0.4}>
+                    <Box p={0.4}>
                       <span>{this.state.profile.full_name}</span>
-                     </Box>
+                    </Box>
                     <Box p={0.4}>
                       <Avatar className={classes.pink} title={this.state.profile.full_name}  >
                         <EditRoundedIcon onClick={() => this.handleEditOpen()} />
                       </Avatar>
-                      <Modal className={classes.modal}  open={this.state.editOpen} aria-labelledby="simple-modal-title" aria-describedby="simple-modal-description" 
-                       onClose={this.handleEditClose} >
+                      <Modal className={classes.modal} open={this.state.editOpen} aria-labelledby="simple-modal-title" aria-describedby="simple-modal-description"
+                        onClose={this.handleEditClose} >
                         <div className={classes.paper}>
                           <h2 id="simple-modal-title">Edit</h2>
                           <FormControl fullWidth={true} >
@@ -224,7 +224,7 @@ class Profile extends Component {
                   }}
                 >
                   <Box display="flex" alignItems="flex-start" bgcolor="background.paper">
-                    <Box p={1} ><img src={this.state.url.url} alt="imae" height="300" width="300" /></Box>
+                    <Box p={1} ><img src={this.state.url.url} alt="imae" height="400" width="400" /></Box>
                     <Box p={1} >
                       <Box display="flex" alignItems="flex-start" p={1} m={1} bgcolor="background.paper">
                         <Box p={1}><Avatar src={this.state.profile.profile_picture}></Avatar></Box>
@@ -245,7 +245,7 @@ class Profile extends Component {
                             </span>
                           ))}
                         </Typography>}
-                      <Box><Like post={currentPost} /></Box>
+                      <Box><Like post={currentPost} profile={true} /></Box>
                     </Box>
                   </Box>
                 </Modal>

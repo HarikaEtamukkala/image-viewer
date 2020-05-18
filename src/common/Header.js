@@ -11,11 +11,12 @@ import Menu from '@material-ui/core/Menu';
 import Avatar from '@material-ui/core/Avatar';
 import history from '../screens/history';
 import Box from '@material-ui/core/Box';
+import Divider from '@material-ui/core/Divider';
 import './Header.css';
 
 
-const styles = theme => ({    
-   
+const styles = theme => ({
+
     title: {
         flexGrow: 1,
         display: 'none',
@@ -27,10 +28,10 @@ const styles = theme => ({
     search: {
         position: 'relative',
         borderRadius: '4px',
-        backgroundColor: '#c0c0c0',       
+        backgroundColor: '#c0c0c0',
         width: '300px',
         [theme.breakpoints.up('md')]: {
-           marginTop:theme.spacing(2),
+            marginTop: theme.spacing(2),
             width: 'auto',
         },
     },
@@ -59,7 +60,7 @@ const styles = theme => ({
                 width: '20ch',
             },
         },
-    },  
+    },
 
 });
 
@@ -73,9 +74,9 @@ class Header extends Component {
             profile: "",
             setAnchorEl: null,
             anchorEl: null
-            
+
         }
-    }  
+    }
     //used for opening menu on top right corner
     handleMenu = (event) => {
         this.setState({ anchorEl: event.currentTarget })
@@ -88,26 +89,25 @@ class Header extends Component {
     profileClickHandler = () => {
         history.push("/profile");
     }
-   //navigating to home page
+    //navigating to home page
     homePageHandler = () => {
         history.push("/home");
     }
-  //logout of application
+    //logout of application
     logoutHandler = () => {
-        
         window.sessionStorage.clear();
+        window.location.reload();
         history.push("/");
-       
     }
     render() {
         const { classes } = this.props;
-        const open = Boolean(this.state.anchorEl);     
+        const open = Boolean(this.state.anchorEl);
 
         return (
-            <div> 
-             <div >
-              <AppBar position="static" style={{ background: '#263238' }} >
-                 <Toolbar>
+            <div>
+                <div >
+                    <AppBar position="static" style={{ background: '#263238' }} >
+                        <Toolbar>
                             <Typography className={classes.title} variant="h6" noWrap onClick={this.homePageHandler} >
                                 Image Viewer
                              </Typography>
@@ -120,7 +120,7 @@ class Header extends Component {
                                         color="inherit"
                                         onClick={this.handleMenu}
                                     >
-                                        <Avatar src={this.props.profile.profile_picture} alt={this.props.profile.full_name}>                                        
+                                        <Avatar src={this.props.profile.profile_picture} alt={this.props.profile.full_name}>
 
                                         </Avatar>
                                     </IconButton>
@@ -159,25 +159,18 @@ class Header extends Component {
                                                     }}
                                                     onChange={this.props.searchHandler}
                                                     inputProps={{ 'aria-label': 'search' }}
-                                                    
+
                                                 />
                                             </div>
                                         </Box>
                                         <Box>
                                             <div>
-                                                <IconButton
-                                                    aria-label="account of current user"
-                                                    aria-controls="menu-appbar"
-                                                    aria-haspopup="true"
-                                                    onClick={this.handleMenu}
-                                                    color="inherit"
-                                                >
+                                                <IconButton aria-label="account of current user" aria-controls="menu-appbar" aria-haspopup="true" onClick={this.handleMenu} color="inherit">
                                                     {this.props.profile && this.props.profile.profile_picture &&
-                                                    <Avatar src={this.props.profile.profile_picture} alt={this.props.profile.full_name} /> 
-                                                        }
+                                                        <Avatar src={this.props.profile.profile_picture} alt={this.props.profile.full_name} />
+                                                    }
                                                 </IconButton>
-                                                <Menu
-                                                    id="menu-appbar"
+                                        <Menu id="menu-appbar" 
                                                     anchorEl={this.state.anchorEl}
                                                     anchorOrigin={{
                                                         vertical: 'top',
@@ -191,9 +184,10 @@ class Header extends Component {
                                                     open={open}
                                                     onClose={this.handleClose}
                                                 >
-                                                    <MenuItem onClick={this.profileClickHandler}>My Account</MenuItem>
-                                                    <MenuItem onClick={this.logoutHandler}>Logout</MenuItem>
-                                                </Menu>
+                                                <MenuItem onClick={this.profileClickHandler}>My Account</MenuItem>
+                                                    <Divider/>
+                                                <MenuItem onClick={this.logoutHandler}>Logout</MenuItem>
+                                        </Menu>
                                             </div>
                                         </Box>
                                     </Box>
@@ -203,8 +197,8 @@ class Header extends Component {
                                 </div>
                             }
                         </Toolbar>
-              </AppBar>
-            </div>
+                    </AppBar>
+                </div>
             </div >
         )
 

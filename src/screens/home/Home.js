@@ -17,24 +17,24 @@ import './Home.css';
 
 const styles = theme => ({
     root: {
-        flexGrow: 1,       
-    },    
+        flexGrow: 1,
+    },
     media: {
         height: 10,
         paddingTop: '56.25%', // 16:9
 
-    },   
+    },
     avatar: {
         backgroundColor: red[500],
     },
- });
+});
 
 class Home extends Component {
 
     constructor() {
         super();
         this.searchHandler = this.searchHandler.bind(this);
-    
+
         this.state = {
             access_token: sessionStorage.getItem("access-token"),
             profile: "",
@@ -47,9 +47,9 @@ class Home extends Component {
             comment: "",
             addEnable: false,
             commentId: "",
-          }
+        }
     }
-    
+
     componentWillMount() {
         //calling instagram  api for posts
         let imagedata = null;
@@ -68,10 +68,10 @@ class Home extends Component {
         xhrMedia.open("GET", "https://api.instagram.com/v1/users/self/media/recent?access_token=" + this.state.access_token);
         xhrMedia.setRequestHeader("Cache-Control", "no-cache");
         xhrMedia.send(imagedata);
-       //calling instagram  api for profile data
+        //calling instagram  api for profile data
         let data = null;
         let xhr = new XMLHttpRequest();
-       
+
         xhr.addEventListener("readystatechange", function () {
             if (this.readyState === 4) {
 
@@ -86,14 +86,14 @@ class Home extends Component {
         xhr.send(data);
     }
 
-  //Seacrh functionality passing search handler to Header Component
+    //Seacrh functionality passing search handler to Header Component
     searchHandler = (event) => {
         let posts = []
         let searchBarText = event.target.value;
         this.state.posts.forEach(function (post) {
-            if (post.caption.text.indexOf(searchBarText) !== -1) {               
+            if (post.caption.text.indexOf(searchBarText) !== -1) {
                 posts.push(post)
-            }           
+            }
         })
         this.setState({
             posts: posts
@@ -118,7 +118,7 @@ class Home extends Component {
                         <Grid container direction={'row'} spacing={3}>
                             {
                                 this.state.posts && this.state.posts.length && this.state.posts.map((post, index) => {
-                                        const cts = new Date(),
+                                    const cts = new Date(),
                                         cdate = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' }).format(cts);
                                     return (
                                         <Grid item md={6} xs={6} key={post.id}>
@@ -141,7 +141,8 @@ class Home extends Component {
                                                         ))}
                                                     </Typography>
                                                 </CardContent>
-                                                <Like post={post} />
+                                                <Like post={post} home={true} />
+                                               
                                             </Card>
                                         </Grid>
                                     )

@@ -13,16 +13,13 @@ const styles = theme => ({
     paper: {
         padding: theme.spacing(1),
         textAlign: 'center',
-      
-      },
+
+    },
 })
 class Like extends Component {
-
-
     constructor() {
         super();
         this.state = {
-            access_token: sessionStorage.getItem("access-token"),
             likeCount: 0,
             clicked: false,
             clickedId: "",
@@ -33,10 +30,11 @@ class Like extends Component {
         }
     }
 
+
     likeClickHandler = (event, id) => {
-      
+
         const clicked = this.state.clicked
-        
+
         if (this.state.clickedId !== event) {
             this.setState({
                 clicked: false
@@ -55,7 +53,7 @@ class Like extends Component {
     }
 
     commentHandler = event => {
-        
+
         this.setState({
             comment: event.target.value,
             commentId: event.target.id
@@ -72,52 +70,51 @@ class Like extends Component {
     }
 
     render() {
-      
-        
         return (
-
             <React.Fragment>
-                <Box  display="flex" m={1}>
-                    <Typography color="initial" >
-                        {this.state.commentId === this.props.post.id && this.state.addEnable && this.state.prevComment.map((comm, index) => (
-                            <span key={index}> <b>{this.props.post.user.full_name}</b>  :{comm} <br /></span>
-                        ))}
-
-                    </Typography>
-                </Box>
-                <br/>  <br/>  <br/>  <br/>  
-                <Box display="flex">                    
-                        <Box>
-                            <IconButton aria-label="add to favorites" onClick={this.likeClickHandler.bind(this, this.props.post.id)} >
-
-                                {this.state.clickedId === this.props.post.id && this.state.clicked ?
-                                    <FavoriteOutlinedIcon id={this.props.post.id} color="secondary" /> : <FavoriteBorderIcon id={this.props.post.id} color="action" />
-                                }
-                            </IconButton>
-                          </Box>
-                       
-                        <Box m={1}>
+                {this.props.profile &&
+                    <Box display="flex" m={1}>
+                        <Typography color="initial" >
+                            {this.state.commentId === this.props.post.id && this.state.addEnable && this.state.prevComment.map((comm, index) => (
+                                <span key={index}> <b>{this.props.post.user.full_name}</b>  :{comm} <br /></span>
+                            ))}
+                        </Typography>
+                    </Box>
+                }
+                <br />  <br />  <br />  <br />
+                <Box display="flex">
+                    <Box>
+                        <IconButton aria-label="add to favorites" onClick={this.likeClickHandler.bind(this, this.props.post.id)} >
+                            {this.state.clickedId === this.props.post.id && this.state.clicked ?
+                                <FavoriteOutlinedIcon id={this.props.post.id} color="secondary" /> : <FavoriteBorderIcon id={this.props.post.id} color="action" />
+                            }
+                        </IconButton>
+                    </Box>
+                    <Box m={1}>
                         {this.state.clickedId === this.props.post.id && this.state.clicked &&
-                                    <span>{this.props.post.likes.count + this.state.likeCount} likes </span>
-                                }
-                                {this.state.clickedId !== this.props.post.id &&
-                                    <span>{this.props.post.likes.count} likes</span>
-                                }
-                        </Box>
-                        
-                      </Box>
-            
-
-                   
-                        <Box display="flex" m={1} bgcolor="background.paper">
-                            <TextField id={this.props.post.id} label="Add a Comment" fullWidth={true} onChange={this.commentHandler} />
-                            <Button id={this.props.post.id} variant="contained" color="primary" onClick={() => this.addHandler()} >ADD</Button>
-                        </Box>
-
-                   
+                            <span>{this.props.post.likes.count + this.state.likeCount} likes </span>
+                        }
+                        {this.state.clickedId !== this.props.post.id &&
+                            <span>{this.props.post.likes.count} likes</span>
+                        }
+                    </Box>
+                </Box>
+                {this.props.home &&
+                    <Box display="flex" m={1}>
+                        <Typography color="initial" >
+                            {this.state.commentId === this.props.post.id && this.state.addEnable && this.state.prevComment.map((comm, index) => (
+                                <span key={index}> <b>{this.props.post.user.full_name}</b>  :{comm} <br /></span>
+                            ))}
+                        </Typography>
+                    </Box>
+                }
+                <Box display="flex" m={1} bgcolor="background.paper">
+                    <TextField id={this.props.post.id} label="Add a Comment" fullWidth={true} onChange={this.commentHandler} />
+                    <Button id={this.props.post.id} variant="contained" color="primary" onClick={() => this.addHandler()} >ADD</Button>
+                </Box>
             </React.Fragment>
         )
     }
 }
 
-export default  withStyles(styles) (Like);
+export default withStyles(styles)(Like);

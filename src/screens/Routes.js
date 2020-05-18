@@ -13,19 +13,15 @@ class Routes  extends Component {
     this.baseUrl = "http://localhost:3000/";
   }
   state = {
-    loggedIn:sessionStorage.getItem("access-token") == null ? false : true,
+    loggedIn: sessionStorage.getItem("access-token") == null ? false : true,
   };
   render() {
-    console.log(this.state.loggedIn);
     return (
       <Router history={history}>
         <div className="main-container">
-          <Route exact path='/' component={Login} />
-        
-        
+          <Route exact path='/' component={Login} />        
           <ProtectedRoute path="/home" loggedIn={this.state.loggedIn} component={Home} />
           <ProtectedRoute path="/profile" loggedIn={this.state.loggedIn} component={Profile} />
-          
         </div>
       </Router>
     )

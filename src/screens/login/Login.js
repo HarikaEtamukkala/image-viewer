@@ -10,7 +10,6 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Input from '@material-ui/core/Input';
 import Grid from '@material-ui/core/Grid';
 import FormHelperText from '@material-ui/core/FormHelperText';
-import history from '../history';
 import './Login.css';
 
 const styles = theme => ({
@@ -43,8 +42,7 @@ class Login extends Component {
     }
 
     //Login Handler for login user
-    loginHandler = () => {
-        console.log("login")
+    loginHandler = () => {        
         this.state.username === "" ? this.setState({ usernameRequired: "dispBlock" }) : this.setState({ usernameRequired: "dispNone" })
         this.state.password === "" ? this.setState({ passwordRequired: "dispBlock" }) : this.setState({ passwordRequired: "dispNone" })
         if (this.state.username && this.state.password && this.state.username === "username" && this.state.password === "password") {
@@ -53,9 +51,9 @@ class Login extends Component {
                 usernameOrPasswordIncorrect: "dispNone",
                 loggedIn: true,
             })
-            history.push("/home");
+            this.props.history.push("/home");
+            window.location.reload();
         } else {
-
             if (this.state.username && this.state.password)
                 this.setState({
                     usernameOrPasswordIncorrect: "dispBlock"

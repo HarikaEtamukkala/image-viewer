@@ -13,16 +13,9 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import history from '../history';
 import './Login.css';
 
-
-
 const styles = theme => ({
     root: {
         width: 400,
-    },
-    bullet: {
-        display: 'inline-block',
-        margin: '0 2px',
-        transform: 'scale(0.8)',
     },
     title: {
         fontSize: 24,
@@ -49,7 +42,6 @@ class Login extends Component {
         }
     }
 
-
     //Login Handler for login user
     loginHandler = () => {
         this.state.username === "" ? this.setState({ usernameRequired: "dispBlock" }) : this.setState({ usernameRequired: "dispNone" })
@@ -60,7 +52,6 @@ class Login extends Component {
             this.setState({
                 usernameOrPasswordIncorrect: "dispNone",
                 loggedIn: true,
-
             })
             history.push("/home");
         } else {
@@ -70,39 +61,35 @@ class Login extends Component {
                     usernameOrPasswordIncorrect: "dispBlock"
                 })
         }
-
     }
 
+    //update username on change
     usernameHandler = event => {
         this.setState({ username: event.target.value })
     }
-
+  //update password on change
     passwordChangeHandler = event => {
-
         this.setState({ password: event.target.value })
     }
 
     render() {
-
         const { classes } = this.props;
         return (
             <div>
                 <Header />
                 <Grid container spacing={0} direction="column" alignItems="center" justify="center" style={{ minHeight: '35vh' }}>
-
                     <Card className={classes.root} variant="outlined">
                         <CardContent className={classes.pos}>
                             <form noValidate autoComplete="off">
                                 <Typography color="textPrimary" className={classes.title}>LOGIN</Typography>
-                                <FormControl fullWidth={true} >
+                                 <FormControl fullWidth={true} >
                                     <InputLabel htmlFor="username" margin="dense" required > Username</InputLabel>
                                     <Input id="username" aria-describedby="my-helper-text" onChange={this.usernameHandler} />
                                     <FormHelperText className={this.state.usernameRequired}>
                                         <span className="red">required</span>
                                     </FormHelperText>
-                                </FormControl>
-                                <br />  <br />
-
+                                  </FormControl>
+                                   <br />  <br />
                                 <FormControl fullWidth={true}>
                                     <InputLabel htmlFor="password" required>Password</InputLabel>
                                     <Input id="password" aria-describedby="my-helper-text" type="password" onChange={this.passwordChangeHandler} />
@@ -123,7 +110,6 @@ class Login extends Component {
                         </CardContent>
 
                     </Card>
-
                 </Grid>
 
             </div>

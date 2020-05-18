@@ -7,8 +7,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import Grid from "@material-ui/core/Grid";
-import Paper from '@material-ui/core/Paper';
+
 
 const styles = theme => ({
     paper: {
@@ -75,7 +74,7 @@ class Like extends Component {
     }
 
     render() {
-        const { classes } = this.props;
+      
         
         return (
 
@@ -88,11 +87,9 @@ class Like extends Component {
 
                     </Typography>
                 </Box>
-                <div style={{ flexGrow: 1 }}>
-
-                    <Grid container spacing={1}>
-                        <Grid item  >
-                        <Box  p={1}>
+                <br/>  <br/>  <br/>  <br/>  
+                <Box display="flex">                    
+                        <Box>
                             <IconButton aria-label="add to favorites" onClick={this.likeClickHandler.bind(this, this.props.post.id)} >
 
                                 {this.state.clickedId === this.props.post.id && this.state.clicked ?
@@ -100,10 +97,8 @@ class Like extends Component {
                                 }
                             </IconButton>
                           </Box>
-                        </Grid>
-                                
-                        <Grid item >
-                        <Box  p={1} m={1} >
+                       
+                        <Box m={1}>
                         {this.state.clickedId === this.props.post.id && this.state.clicked &&
                                     <span>{this.props.post.likes.count + this.state.likeCount} likes </span>
                                 }
@@ -111,18 +106,17 @@ class Like extends Component {
                                     <span>{this.props.post.likes.count} likes</span>
                                 }
                         </Box>
-                        </Grid>
-                        </Grid>
-                      
-                </div>
+                        
+                      </Box>
+            
 
-                    <div style={{ width: '100%' }}>
-                        <Box display="flex" p={1} bgcolor="background.paper">
+                   
+                        <Box display="flex" m={1} bgcolor="background.paper">
                             <TextField id={this.props.post.id} label="Add a Comment" fullWidth={true} onChange={this.commentHandler} />
                             <Button id={this.props.post.id} variant="contained" color="primary" onClick={() => this.addHandler()} >ADD</Button>
                         </Box>
 
-                    </div>
+                   
             </React.Fragment>
         )
     }

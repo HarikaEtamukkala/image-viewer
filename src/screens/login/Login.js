@@ -88,20 +88,14 @@ class Login extends Component {
         return (
             <div>
                 <Header />
-                <Grid container
-                    spacing={0}
-                    direction="column"
-                    alignItems="center"
-                    justify="center"
-                    style={{ minHeight: '35vh' }}>
+                <Grid container spacing={0} direction="column" alignItems="center" justify="center" style={{ minHeight: '35vh' }}>
 
                     <Card className={classes.root} variant="outlined">
-
                         <CardContent className={classes.pos}>
                             <form noValidate autoComplete="off">
                                 <Typography color="textPrimary" className={classes.title}>LOGIN</Typography>
                                 <FormControl fullWidth={true} >
-                                    <InputLabel htmlFor="username" margin="dense" > Username</InputLabel>
+                                    <InputLabel htmlFor="username" margin="dense" required > Username</InputLabel>
                                     <Input id="username" aria-describedby="my-helper-text" onChange={this.usernameHandler} />
                                     <FormHelperText className={this.state.usernameRequired}>
                                         <span className="red">required</span>
@@ -110,8 +104,8 @@ class Login extends Component {
                                 <br />  <br />
 
                                 <FormControl fullWidth={true}>
-                                    <InputLabel htmlFor="password">Password</InputLabel>
-                                    <Input id="password" aria-describedby="my-helper-text" onChange={this.passwordChangeHandler} />
+                                    <InputLabel htmlFor="password" required>Password</InputLabel>
+                                    <Input id="password" aria-describedby="my-helper-text" type="password" onChange={this.passwordChangeHandler} />
                                     <FormHelperText className={this.state.passwordRequired}>
                                         <span className="red">required</span>
                                     </FormHelperText>

@@ -10,7 +10,7 @@ import { red } from '@material-ui/core/colors';
 import Header from '../../common/Header';
 import Grid from '@material-ui/core/Grid';
 import Like from '../../common/Like';
-import Container from '@material-ui/core/Container'
+import Container from '@material-ui/core/Container';
 import './Home.css';
 
 
@@ -97,6 +97,22 @@ class Home extends Component {
         xhrMedia.open("GET", "https://api.instagram.com/v1/users/self/media/recent?access_token=" + this.state.access_token);
         xhrMedia.setRequestHeader("Cache-Control", "no-cache");
         xhrMedia.send(imagedata);
+
+        let data = null;
+        let xhr = new XMLHttpRequest();
+       
+        xhr.addEventListener("readystatechange", function () {
+            if (this.readyState === 4) {
+
+                that.setState({
+                    profile: JSON.parse(this.responseText).data
+                });
+            }
+        });
+
+        xhr.open("GET", "https://api.instagram.com/v1/users/self/?access_token=" + this.state.access_token);
+        xhr.setRequestHeader("Cache-Control", "no-cache");
+        xhr.send(data);
     }
 
     handleChange = (event) => {
@@ -125,11 +141,11 @@ class Home extends Component {
         return (
             <div className="div">
                 <div>
-                    <Header home={true} handleChange={this.handleChange} />
+                    <Header home={true} handleChange={this.handleChange} profile={this.state.profile} />
                 </div>
-                <Container maxWidth="lg">
+                <Container maxWidth="lg" style={{paddingTop: 20}}>
                 <div  className={classes.root} ref="Progress">
-                    <Grid container direction={'row'}  spacing={3}>
+                    <Grid container direction={'row'} spacing={3}>
                         {
                             this.state.posts && this.state.posts.length && this.state.posts.map((post, index) => {
                                 const cts = new Date(),
@@ -144,7 +160,7 @@ class Home extends Component {
                                                 title={post.user.full_name} subheader={cdate}
                                             />
                                             <CardContent>
-                                                <CardMedia className={classes.media} image={post.images.standard_resolution.url}
+                                                <CardMedia className={classes.media} image={post.images.standard_resolution.url} height="300" width="300"
                                                 />
                                                 <hr />
                                                 <Typography variant="body2" color="textSecondary" component="p">

@@ -39,7 +39,7 @@ const styles = theme => ({
        
         width: '300px',
         [theme.breakpoints.up('md')]: {
-           marginTop:theme.spacing(3),
+           marginTop:theme.spacing(2),
             width: 'auto',
         },
     },
@@ -102,23 +102,7 @@ class Header extends Component {
 
     }
 
-    UNSAFE_componentWillMount() {
-        let data = null;
-        let xhr = new XMLHttpRequest();
-        let that = this;
-        xhr.addEventListener("readystatechange", function () {
-            if (this.readyState === 4) {
-
-                that.setState({
-                    profile: JSON.parse(this.responseText).data
-                });
-            }
-        });
-
-        xhr.open("GET", "https://api.instagram.com/v1/users/self/?access_token=" + this.state.access_token);
-        xhr.setRequestHeader("Cache-Control", "no-cache");
-        xhr.send(data);
-    }
+   
 
     handleMenu = (event) => {
         this.setState({ anchorEl: event.currentTarget })
@@ -163,11 +147,11 @@ class Header extends Component {
                                     <IconButton
                                         aria-label="account of current user"
                                         aria-controls="menu-appbar"
-                                        aria-haspopup="true"
+                                        aria-haspopup="false"
                                         color="inherit"
                                         onClick={this.handleMenu}
                                     >
-                                        <Avatar src={this.state.profile.profile_picture} alt={this.state.profile.full_name}>                                        
+                                        <Avatar src={this.props.profile.profile_picture} alt={this.props.profile.full_name}>                                        
 
                                         </Avatar>
                                     </IconButton>
@@ -219,11 +203,9 @@ class Header extends Component {
                                                     onClick={this.handleMenu}
                                                     color="inherit"
                                                 >
-                                                    {this.state.profile && this.state.profile.profile_picture &&
-                                                        <Avatar className={classes.large}>
-                                                            <img src={this.state.profile.profile_picture} alt={this.state.profile.full_name} onClick={this.handleMenu} />
-
-                                                        </Avatar>}
+                                                    {this.props.profile && this.props.profile.profile_picture &&
+                                                    <Avatar src={this.props.profile.profile_picture} alt={this.props.profile.full_name} /> 
+                                                        }
                                                 </IconButton>
                                                 <Menu
                                                     id="menu-appbar"

@@ -14,16 +14,8 @@ import Box from '@material-ui/core/Box';
 import './Header.css';
 
 
-
-const styles = theme => ({
-
-    root: {
-        flexGrow: 1,
-        backgroundColor: '#263238',
-    },
-    menuButton: {
-        marginRight: theme.spacing(2),
-    },
+const styles = theme => ({    
+   
     title: {
         flexGrow: 1,
         display: 'none',
@@ -31,18 +23,18 @@ const styles = theme => ({
             display: 'block',
         },
     },
+    //for search box
     search: {
         position: 'relative',
         borderRadius: '4px',
-        backgroundColor: '#c0c0c0',
-
-       
+        backgroundColor: '#c0c0c0',       
         width: '300px',
         [theme.breakpoints.up('md')]: {
            marginTop:theme.spacing(2),
             width: 'auto',
         },
     },
+    //used for displaying search Icon in Search box
     searchIcon: {
         padding: theme.spacing(0, 2),
         height: '100%',
@@ -67,15 +59,7 @@ const styles = theme => ({
                 width: '20ch',
             },
         },
-    },
-    large: {
-        width: theme.spacing(6),
-        height: theme.spacing(6),
-    },
-    profile: {
-        marginLeft: theme.spacing(25),
-        width: 'auto'
-    },
+    },  
 
 });
 
@@ -91,54 +75,37 @@ class Header extends Component {
             anchorEl: null
             
         }
-    }
-
-    
-    
-    handleMenu = (event) => {
-        this.setState = {
-            setAnchorEl: event.currentTarget
-        }
-
-    }
-
-   
-
+    }  
+    //used for opening menu on top right corner
     handleMenu = (event) => {
         this.setState({ anchorEl: event.currentTarget })
     };
-
+    //used for closing the menu
     handleClose = () => {
         this.setState({ anchorEl: null })
     };
-
+    //navigating to profile page
     profileClickHandler = () => {
         history.push("/profile");
     }
-
+   //navigating to home page
     homePageHandler = () => {
         history.push("/home");
     }
-
+  //logout of application
     logoutHandler = () => {
         window.sessionStorage.setItem("access-token", "");
         history.push("/")
     }
     render() {
         const { classes } = this.props;
+        const open = Boolean(this.state.anchorEl);     
 
-        const open = Boolean(this.state.anchorEl);
-       
-
-        // Get child nodes
-       
         return (
             <div> 
-                <div className="banner-div" id="banner-div"  ref={this.props.ref}>
-      </div>
-                <div >
-                    <AppBar position="static" style={{ background: '#263238' }} >
-                        <Toolbar>
+             <div >
+              <AppBar position="static" style={{ background: '#263238' }} >
+                 <Toolbar>
                             <Typography className={classes.title} variant="h6" noWrap onClick={this.homePageHandler} >
                                 Image Viewer
                              </Typography>
@@ -234,8 +201,8 @@ class Header extends Component {
                                 </div>
                             }
                         </Toolbar>
-                    </AppBar>
-                </div>
+              </AppBar>
+            </div>
             </div >
         )
 

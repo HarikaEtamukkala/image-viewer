@@ -155,7 +155,7 @@ class Header extends Component {
                                                         root: classes.inputRoot,
                                                         input: classes.inputInput,
                                                     }}
-                                                    onChange={this.props.handleChange}
+                                                    onChange={this.props.searchHandler}
                                                     inputProps={{ 'aria-label': 'search' }}
                                                     
                                                 />
